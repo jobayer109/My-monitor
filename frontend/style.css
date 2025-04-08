@@ -1,0 +1,338 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #ecf0f1;
+    --card-background: #ffffff;
+    --text-color: #2c3e50;
+    --muted-text-color: #7f8c8d;
+    --border-color: #bdc3c7;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Slightly softer shadow */
+    --border-radius: 8px;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 15px; /* Reduced padding for body */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center container vertically */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    line-height: 1.5; /* Slightly tighter line height */
+}
+
+.container {
+    background-color: var(--card-background);
+    padding: 25px 30px; /* Adjusted padding */
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    max-width: 1100px; /* Allow wider container on large screens */
+    width: 100%;
+    text-align: center;
+    /* Flexbox to manage internal layout and height */
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 30px); /* Limit height to viewport minus body padding */
+    overflow: hidden; /* Prevent container itself from scrolling */
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-top: 0; /* Remove default top margin */
+    margin-bottom: 20px; /* Reduced margin */
+    font-weight: 600;
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+.metrics-grid {
+    display: grid;
+    /* Responsive grid columns */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px; /* Slightly reduced gap */
+    margin-bottom: 20px;
+    text-align: left;
+    /* Allow grid to scroll if content overflows container height */
+    overflow-y: auto;
+    flex-grow: 1; /* Allow grid to take available space */
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+/* Custom scrollbar for the grid */
+.metrics-grid::-webkit-scrollbar {
+    width: 8px;
+}
+.metrics-grid::-webkit-scrollbar-track {
+    background: var(--background-color);
+    border-radius: 4px;
+}
+.metrics-grid::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+.metrics-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-text-color);
+}
+
+
+.metric-card {
+    background-color: var(--card-background);
+    padding: 15px; /* Reduced padding */
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Lighter shadow for cards */
+    transition: transform 0.2s ease-in-out;
+    display: flex; /* Use flexbox for card content */
+    flex-direction: column; /* Stack content vertically */
+}
+
+.metric-card:hover {
+    transform: translateY(-2px); /* Subtle hover */
+}
+
+.metric-card h2 {
+    font-size: 1em; /* Slightly smaller heading */
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--background-color);
+    padding-bottom: 6px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.metric-card p {
+    font-size: 0.95em; /* Slightly smaller text */
+    margin: 5px 0;
+    color: var(--text-color);
+    word-wrap: break-word;
+    flex-shrink: 0;
+}
+
+.metric-card p span {
+    font-weight: 500;
+}
+
+/* Specific styles for battery card elements */
+#battery-card h2 {
+    color: var(--secondary-color);
+}
+
+#battery-percent {
+    font-size: 1.1em; /* Adjusted size */
+    font-weight: bold;
+}
+
+#battery-status, #battery-time {
+    font-size: 0.85em; /* Adjusted size */
+    color: var(--muted-text-color);
+}
+#battery-status {
+     font-style: italic;
+}
+
+#battery-health {
+    font-size: 0.85em;
+    color: var(--muted-text-color);
+}
+
+/* GPU, Disk, Network specific styles (optional, can use default card style) */
+#gpu-card h2 span, #disk-card h2 span, #network-card h2 span {
+    font-weight: normal;
+    font-size: 0.9em;
+    color: var(--muted-text-color);
+}
+
+/* Process List Styling */
+#processes-card {
+    /* Allow this card to span more columns on wider screens if grid allows */
+    grid-column: span 1; /* Default span */
+}
+
+#process-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85em;
+    text-align: left;
+    max-height: 150px; /* Limit height and allow scrolling if needed */
+    overflow-y: auto;
+    border-top: 1px solid var(--background-color);
+    margin-top: 10px;
+    padding-top: 5px;
+}
+
+#process-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    border-bottom: 1px dashed var(--background-color);
+}
+#process-list li:last-child {
+    border-bottom: none;
+}
+
+#process-list .proc-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%; /* Prevent long names from pushing stats off */
+}
+
+#process-list .proc-stats {
+    white-space: nowrap;
+    color: var(--muted-text-color);
+    margin-left: 10px;
+}
+
+
+.controls {
+    margin-top: 15px; /* Add margin top instead of bottom */
+    margin-bottom: 0; /* Remove bottom margin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0; /* Prevent controls from shrinking */
+    padding-top: 15px; /* Add padding for separation */
+    border-top: 1px solid var(--background-color); /* Separator line */
+}
+
+#collect-now-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Adjusted padding */
+    font-size: 0.95em; /* Adjusted size */
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#collect-now-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.03);
+}
+
+#collect-now-btn:active {
+    transform: scale(0.98);
+}
+
+#collect-now-btn:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.status {
+    margin-top: 10px; /* Reduced margin */
+    font-style: italic;
+    color: var(--muted-text-color);
+    font-size: 0.85em; /* Adjusted size */
+    flex-shrink: 0;
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Wider screens (e.g., > 900px) allow process list to span */
+@media (min-width: 900px) {
+    .metrics-grid {
+         /* Adjust grid template to potentially allow spanning */
+         /* Example: Use more columns if appropriate */
+         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    #processes-card.wide-card {
+        grid-column: span 2; /* Span 2 columns */
+    }
+}
+
+
+/* Tablet */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 20px;
+        max-height: calc(100vh - 20px);
+    }
+    .metrics-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Adjust minmax */
+        gap: 15px;
+    }
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+    .metric-card {
+        padding: 12px;
+    }
+    .metric-card h2 {
+        font-size: 0.95em;
+    }
+    .metric-card p {
+        font-size: 0.9em;
+    }
+    #collect-now-btn {
+        padding: 9px 18px;
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    body {
+        padding: 5px; /* Minimal padding */
+        align-items: flex-start; /* Align container to top on mobile */
+    }
+    .container {
+        padding: 15px;
+        max-height: calc(100vh - 10px);
+    }
+    .metrics-grid {
+        /* Force single column */
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding-right: 5px; /* Adjust scrollbar padding */
+    }
+     .metrics-grid::-webkit-scrollbar {
+        width: 5px; /* Thinner scrollbar */
+    }
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    .metric-card {
+        padding: 10px;
+    }
+     #processes-card.wide-card {
+        grid-column: span 1; /* Reset span on smaller screens */
+    }
+    #process-list {
+        font-size: 0.8em; /* Smaller font on mobile */
+    }
+    .controls {
+        flex-direction: column; /* Stack controls vertically */
+        gap: 10px;
+        padding-top: 10px;
+    }
+    #collect-now-btn {
+        width: 100%; /* Make button full width */
+    }
+    .status {
+        margin-top: 8px;
+        font-size: 0.8em;
+    }
+}
