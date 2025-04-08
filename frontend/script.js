@@ -14,10 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const batteryTimeEl = document.getElementById('battery-time');
     const batteryHealthEl = document.getElementById('battery-health');
 
-    const gpuCardEl = document.getElementById('gpu-card');
-    const gpuNameEl = document.getElementById('gpu-name');
-    const gpuLoadEl = document.getElementById('gpu-load');
-    const gpuTempEl = document.getElementById('gpu-temp');
+    // Removed GPU elements
 
     const diskCardEl = document.getElementById('disk-card');
     const diskNameEl = document.getElementById('disk-name');
@@ -28,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const netRxSecEl = document.getElementById('net-rx-sec');
     const netTxSecEl = document.getElementById('net-tx-sec');
 
-    const processesCardEl = document.getElementById('processes-card');
-    const processListEl = document.getElementById('process-list');
+    // Removed Process elements
 
     const defaultVal = '--';
 
@@ -59,14 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             batteryCardEl.style.display = 'none';
         }
 
-        if (metrics.gpuName && metrics.gpuName !== 'N/A') {
-             gpuCardEl.style.display = 'flex';
-             gpuNameEl.textContent = metrics.gpuName;
-             gpuLoadEl.textContent = metrics.gpuLoad ?? defaultVal;
-             gpuTempEl.textContent = metrics.gpuTemp ?? defaultVal;
-        } else {
-             gpuCardEl.style.display = 'none';
-        }
+        // Removed GPU update logic
 
         if (metrics.diskName && metrics.diskName !== 'N/A') {
             diskCardEl.style.display = 'flex';
@@ -85,27 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             networkCardEl.style.display = 'none';
         }
 
-        if (metrics.topProcesses && metrics.topProcesses.length > 0) {
-            processesCardEl.style.display = 'flex';
-            processListEl.innerHTML = ''; // Clear previous list
-            metrics.topProcesses.forEach(proc => {
-                const li = document.createElement('li');
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'proc-name';
-                nameSpan.textContent = proc.name;
-                nameSpan.title = `${proc.name} (PID: ${proc.pid})`; // Add PID on hover
-
-                const statsSpan = document.createElement('span');
-                statsSpan.className = 'proc-stats';
-                statsSpan.textContent = `CPU: ${proc.cpu}% MEM: ${proc.mem}%`;
-
-                li.appendChild(nameSpan);
-                li.appendChild(statsSpan);
-                processListEl.appendChild(li);
-            });
-        } else {
-            processesCardEl.style.display = 'none';
-        }
+        // Removed Top Processes update logic
     }
 
     async function fetchMetrics(endpoint = '/metrics') {

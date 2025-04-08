@@ -1,16 +1,23 @@
 {
-  "name": "battle-monitor",
+  "name": "my-monitor",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Simple system resource monitor",
+  "main": "backend/server.js",
   "scripts": {
+    "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "monitor",
+    "system",
+    "resources",
+    "node",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^5.1.0",
-    "systeminformation": "^5.25.11"
+    "express": "^4.17.1",
+    "systeminformation": "^5.0.0"
   }
 }
